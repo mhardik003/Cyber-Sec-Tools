@@ -14,3 +14,5 @@ sudo python3 packet_sniffer.py
 
 
 * *formatter.py* is a small python program I made for myself to remove the UTF-8 hex code from my terminal which was being shown while intercepting the data and thus clean the packets [change the file name in the file command if you want to use it]
+
+* To test the program for an HTTP website, visit : http://testphp.vulnweb.com/login.php
